@@ -17,6 +17,9 @@
 		F46E42B11DFBFEA6002EBE7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F46E42AF1DFBFEA6002EBE7E /* LaunchScreen.storyboard */; };
 		F46E42BC1DFBFEA6002EBE7E /* vgcontroller_pTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46E42BB1DFBFEA6002EBE7E /* vgcontroller_pTests.swift */; };
 		F46E42C71DFBFEA6002EBE7E /* vgcontroller_pUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46E42C61DFBFEA6002EBE7E /* vgcontroller_pUITests.swift */; };
+		F46E42D51DFC01AB002EBE7E /* ControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46E42D41DFC01AB002EBE7E /* ControlButton.swift */; };
+		F46E42D71DFC01ED002EBE7E /* GameSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46E42D61DFC01ED002EBE7E /* GameSprite.swift */; };
+		F46E42D91DFC0451002EBE7E /* bee.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46E42D81DFC0451002EBE7E /* bee.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		F46E42C21DFBFEA6002EBE7E /* vgcontroller_pUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = vgcontroller_pUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F46E42C61DFBFEA6002EBE7E /* vgcontroller_pUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vgcontroller_pUITests.swift; sourceTree = "<group>"; };
 		F46E42C81DFBFEA6002EBE7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F46E42D41DFC01AB002EBE7E /* ControlButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlButton.swift; sourceTree = "<group>"; };
+		F46E42D61DFC01ED002EBE7E /* GameSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSprite.swift; sourceTree = "<group>"; };
+		F46E42D81DFC0451002EBE7E /* bee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bee.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,9 +111,12 @@
 			children = (
 				F46E42A01DFBFEA6002EBE7E /* AppDelegate.swift */,
 				F46E42A21DFBFEA6002EBE7E /* GameScene.sks */,
+				F46E42D81DFC0451002EBE7E /* bee.swift */,
 				F46E42A41DFBFEA6002EBE7E /* Actions.sks */,
 				F46E42A61DFBFEA6002EBE7E /* GameScene.swift */,
 				F46E42A81DFBFEA6002EBE7E /* GameViewController.swift */,
+				F46E42D41DFC01AB002EBE7E /* ControlButton.swift */,
+				F46E42D61DFC01ED002EBE7E /* GameSprite.swift */,
 				F46E42AA1DFBFEA6002EBE7E /* Main.storyboard */,
 				F46E42AD1DFBFEA6002EBE7E /* Assets.xcassets */,
 				F46E42AF1DFBFEA6002EBE7E /* LaunchScreen.storyboard */,
@@ -273,9 +282,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F46E42D91DFC0451002EBE7E /* bee.swift in Sources */,
 				F46E42A71DFBFEA6002EBE7E /* GameScene.swift in Sources */,
 				F46E42A91DFBFEA6002EBE7E /* GameViewController.swift in Sources */,
 				F46E42A11DFBFEA6002EBE7E /* AppDelegate.swift in Sources */,
+				F46E42D71DFC01ED002EBE7E /* GameSprite.swift in Sources */,
+				F46E42D51DFC01AB002EBE7E /* ControlButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,10 +439,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = M4KC9458G7;
 				INFOPLIST_FILE = vgcontroller_p/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "steveyang.vgcontroller-p";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -440,10 +454,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = M4KC9458G7;
 				INFOPLIST_FILE = vgcontroller_p/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "steveyang.vgcontroller-p";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

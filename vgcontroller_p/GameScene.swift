@@ -1,89 +1,124 @@
 //
 //  GameScene.swift
-//  vgcontroller_p
+//  tttt
 //
-//  Created by Steve Yang on 2016/12/10.
+//  Created by Steve Yang on 2016/11/17.
 //  Copyright © 2016年 Steve Yang. All rights reserved.
 //
 
 import SpriteKit
 import GameplayKit
+import CoreMotion
 
 class GameScene: SKScene {
     
     private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    let world = SKNode()
+    let hero = HeroBee()
+    var cp: ControlPanel?
+    
+    var blTouched: Bool = false
+    
+    override func didSimulatePhysics() {
+    }
+    
     
     override func didMove(to view: SKView) {
+        self.backgroundColor = UIColor(red: 0.4, green: 0.6, blue:
+            0.95, alpha: 1.0)
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
-        
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(M_PI), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
+
+        self.addChild(world)
+        hero.spawn(parentNode: world, position: CGPoint(x: -0, y: -180))
+        self.addControlPanel(scene: self, node: hero)
     }
     
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
+    func addControlPanel(scene: SKScene, node: SKSpriteNode) {
+        self.cp = ControlPanel(scene: scene);
+        self.cp!.Create()
+        self.cp!.SetControl(node: node)
     }
     
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+        for touch in (touches as! Set<UITouch>) {
+            // Find the location of the touch:
+            let location = touch.location(in: self)
+            
+            let date = Date()
+            let calendar = Calendar.current
+            
+            let seconds = calendar.component(.second, from: date)
+            
+            print ("touch begin at \(location) seconds=\(seconds)")
+            // Locate the node at this location:
+            let nodeTouched = atPoint(location)
+            // Attempt to downcast the node to the GameSprite protocol
+            if let gameSprite = nodeTouched as? ControlNode {
+                // If this node adheres to GameSprite, call onTap:
+                gameSprite.SetTouch()
+                
+            }
+            
         }
-        
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
+        cp?.SetUntouch()
+        for touch in (touches as! Set<UITouch>) {
+            // Find the location of the touch:
+            let location = touch.location(in: self)
+            
+            let date = Date()
+            let calendar = Calendar.current
+            
+            let seconds = calendar.component(.second, from: date)
+            
+            print ("touch begin at \(location) seconds=\(seconds)")
+            // Locate the node at this location:
+            let nodeTouched = atPoint(location)
+            // Attempt to downcast the node to the GameSprite protocol
+            if let gameSprite = nodeTouched as? ControlNode {
+                // If this node adheres to GameSprite, call onTap:
+                gameSprite.SetTouch()
+                
+            }
+            
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        for touch in (touches as! Set<UITouch>) {
+            // Find the location of the touch:
+            let location = touch.location(in: self)
+            
+            let date = Date()
+            let calendar = Calendar.current
+            
+            let seconds = calendar.component(.second, from: date)
+            
+            print ("touch ends at \(location) seconds=\(seconds)")
+            cp?.SetUntouch()
+            
+        }
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
     
     
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        if self.cp != nil {
+            if (self.cp?.cl?.isTouched)! {
+                self.hero.position = CGPoint(x:self.hero.position.x - 1, y:self.hero.position.y)
+            } else if (self.cp?.cr?.isTouched)! {
+                self.hero.position = CGPoint(x:self.hero.position.x + 1, y:self.hero.position.y)
+            } else if (self.cp?.cu?.isTouched)! {
+                self.hero.position = CGPoint(x:self.hero.position.x, y:self.hero.position.y + 1)
+            } else if (self.cp?.cd?.isTouched)! {
+                self.hero.position = CGPoint(x:self.hero.position.x, y:self.hero.position.y - 1)
+            }
+        }
     }
 }
+
